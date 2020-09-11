@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Toolbar } from "@material-ui/core";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
@@ -6,11 +6,9 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import { Link, graphql, useStaticQuery, navigate } from "gatsby";
-import {useDispatch, useSelector} from "react-redux";
-import {setTheme} from "../../redux/themes/themes.action";
+import { useDispatch, useSelector } from "react-redux";
+import { setTheme } from "../../redux/themes/themes.action";
 import themes from "../../services/themes";
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 const Header = () => {
   const [value, setValue] = React.useState(
@@ -41,13 +39,13 @@ const Header = () => {
       return locationObject.location.replace(" ", "-").toLowerCase();
     return locationObject.location.toLowerCase();
   });
-  
+
   const dispatch = useDispatch();
-  const [view, setView] = useState('dark');
-  const handleChangeTheme = (event, nextView) =>
-    {setView(nextView), dispatch(setTheme(themes[nextView]))};
- 
-  
+  const [view, setView] = useState("dark");
+  const handleChangeTheme = (event, nextView) => {
+    setView(nextView), dispatch(setTheme(themes[nextView]));
+  };
+
   return (
     <>
       <Toolbar className={`header-container`}>
@@ -61,7 +59,7 @@ const Header = () => {
                       to={`/locations/${pathLocations[index]}`}
                       onClick={() => {
                         setValue(item.location),
-                        localStorage.setItem("valueLocation", item.location);
+                          localStorage.setItem("valueLocation", item.location);
                       }}
                     >
                       <FormControlLabel
@@ -76,18 +74,24 @@ const Header = () => {
             </RadioGroup>
           </FormLabel>
         </FormControl>
-    
-          <ToggleButtonGroup orientation="vertical" value={view} exclusive onChange={handleChangeTheme}>
-              <ToggleButton value="dark" aria-label="dark">
-                  {'dark'}
-              </ToggleButton>
-              <ToggleButton value="light" aria-label="light">
-                  {'light'}
-              </ToggleButton>
-              <ToggleButton value="custom" aria-label="custom">
-                  {'custom'}
-              </ToggleButton>
-          </ToggleButtonGroup>
+
+        <FormControl component="fieldset">
+          <FormLabel component="legend" />
+          <RadioGroup
+            aria-label="gender2"
+            name="gender2"
+            value={view}
+            onChange={handleChangeTheme}
+          >
+            <FormControlLabel value="dark" control={<Radio />} label="dark" />
+            <FormControlLabel value="light" control={<Radio />} label="light" />
+            <FormControlLabel
+              value="custom"
+              control={<Radio />}
+              label="custom"
+            />
+          </RadioGroup>
+        </FormControl>
       </Toolbar>
     </>
   );
