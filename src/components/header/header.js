@@ -46,7 +46,9 @@ const Header = () => {
   );
   const dispatch = useDispatch();
   const handleChangeTheme = (event, nextView) => {
-    dispatch(setTheme(themes[nextView])), dispatch(setNameTheme(nextView));
+    dispatch(setTheme(themes[nextView])), dispatch(setNameTheme(nextView)),
+        localStorage.setItem("currentTheme", JSON.stringify(themes[nextView]));
+        localStorage.setItem("nameCurrentTheme", nextView);
   };
 
   return (

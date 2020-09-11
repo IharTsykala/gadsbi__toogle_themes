@@ -2,8 +2,8 @@ import {ActionTypes} from "./themes.action";
 import themes from "../../services/themes";
 
 const initialState = {
-    currentTheme: themes.dark,
-    nameCurrentTheme: 'dark'
+    currentTheme: JSON.parse(localStorage.getItem("currentTheme")) || themes.dark,
+    nameCurrentTheme: localStorage.getItem("nameCurrentTheme") || "dark"
 };
 
 export default function themesReducer(state = initialState, action) {
