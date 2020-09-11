@@ -12,8 +12,8 @@ const Wrapper = styled.div`
 
 const Layout = ({ children }) => {
     const currentTheme = useSelector(state => state.themes.currentTheme, []);
-    const dispatch = useDispatch();
-    useEffect(() => {console.log(currentTheme)},[currentTheme])
+    const nameCurrentTheme = useSelector(state => state.themes.nameCurrentTheme, []);
+    useEffect(() => {console.log(currentTheme, nameCurrentTheme)},[currentTheme])
   return (
     <>
       <ThemeProvider theme={currentTheme}>

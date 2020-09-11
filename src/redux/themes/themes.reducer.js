@@ -3,6 +3,7 @@ import themes from "../../services/themes";
 
 const initialState = {
     currentTheme: themes.dark,
+    nameCurrentTheme: 'dark'
 };
 
 export default function themesReducer(state = initialState, action) {
@@ -11,6 +12,11 @@ export default function themesReducer(state = initialState, action) {
             return {
                 ...state,
                 currentTheme: action.payload,
+            };
+        case ActionTypes.SET_NAME_THEME:
+            return {
+                ...state,
+                nameCurrentTheme: action.payload,
             };
         default:
             return state;

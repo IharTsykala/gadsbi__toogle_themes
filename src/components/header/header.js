@@ -7,7 +7,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import { Link, graphql, useStaticQuery, navigate } from "gatsby";
 import { useDispatch, useSelector } from "react-redux";
-import { setTheme } from "../../redux/themes/themes.action";
+import { setNameTheme, setTheme } from "../../redux/themes/themes.action";
 import themes from "../../services/themes";
 
 const Header = () => {
@@ -40,10 +40,13 @@ const Header = () => {
     return locationObject.location.toLowerCase();
   });
 
+  const nameCurrentTheme = useSelector(
+    (state) => state.themes.nameCurrentTheme,
+    []
+  );
   const dispatch = useDispatch();
-  const [view, setView] = useState("dark");
   const handleChangeTheme = (event, nextView) => {
-    setView(nextView), dispatch(setTheme(themes[nextView]));
+    dispatch(setTheme(themes[nextView])), dispatch(setNameTheme(nextView));
   };
 
   return (
@@ -80,7 +83,7 @@ const Header = () => {
           <RadioGroup
             aria-label="gender2"
             name="gender2"
-            value={view}
+            value={nameCurrentTheme}
             onChange={handleChangeTheme}
           >
             <FormControlLabel value="dark" control={<Radio />} label="dark" />
